@@ -104,7 +104,7 @@ const Home: NextPage = () => {
           counting
         </a>
         <h1 className="mx-auto max-w-4xl font-display text-4xl font-bold tracking-normal text-slate-900 sm:text-6xl mb-5">
-          Restore any face photo
+          Create your dream car
         </h1>
         { data && (
           <p className="text-slate-500">
