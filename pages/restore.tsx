@@ -43,16 +43,6 @@ const Home: NextPage = () => {
     editor: { images: { crop: false } },
     styles: { colors: { primary: "#000" } },
     onValidate: async (file: File): Promise<undefined | string> => {
-      let isSafe = false;
-      try {
-        isSafe = await NSFWPredictor.isSafeImg(file);
-        if (!isSafe) va.track("NSFW Image blocked");
-      } catch (error) {
-        console.error("NSFW predictor threw an error", error);
-      }
-      if (!isSafe) {
-        return "Detected a NSFW image which is not allowed.";
-      }
       if (data.remainingGenerations === 0) {
         return "No more generations left for the day.";
       }
@@ -119,7 +109,7 @@ const Home: NextPage = () => {
         <h1 className="mx-auto max-w-4xl font-display text-4xl font-bold tracking-normal text-slate-900 sm:text-6xl mb-5">
           Restore any face photo
         </h1>
-        {status === "authenticated" && data && (
+        { data && (
           <p className="text-slate-500">
             You have{" "}
             <span className="font-semibold">
@@ -157,31 +147,10 @@ const Home: NextPage = () => {
                 ariaLabel="rings-loading"
               />
             </div>
-          ) : status === "authenticated" && !originalPhoto ? (
-            <UploadDropZone />
           ) : (
-            !originalPhoto && (
-              <div className="h-[250px] flex flex-col items-center space-y-6 max-w-[670px] -mt-8">
-                <div className="max-w-xl text-gray-600">
-                  Sign in below with Google to create a free account and restore
-                  your photos today. You will be able to restore 5 photos per
-                  day for free.
-                </div>
-                <button
-                  onClick={() => signIn("google")}
-                  className="bg-gray-200 text-black font-semibold py-3 px-6 rounded-2xl flex items-center space-x-2"
-                >
-                  <Image
-                    src="/google.png"
-                    width={20}
-                    height={20}
-                    alt="google's logo"
-                  />
-                  <span>Sign in with Google</span>
-                </button>
-              </div>
-            )
-          )}
+            <UploadDropZone />
+          )
+          }
           {originalPhoto && !restoredImage && (
             <Image
               alt="original photo"
