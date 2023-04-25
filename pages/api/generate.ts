@@ -8,6 +8,7 @@ type Data = string;
 interface ExtendedNextApiRequest extends NextApiRequest {
   body: {
     imageUrl: string;
+    theme: string;
   };
 }
 
@@ -54,6 +55,8 @@ export default async function handler(
   }
 
   const imageUrl = req.body.imageUrl;
+  const theme = req.body.theme;
+  const prompt = "A car with a " + theme + " theme.";
   // POST request to Replicate to start the image restoration generation process
   let startResponse = await fetch("https://api.replicate.com/v1/predictions", {
     method: "POST",
@@ -63,8 +66,17 @@ export default async function handler(
     },
     body: JSON.stringify({
       version:
-        "9283608cc6b7be6b65a8e44983db012355fde4132009bf99d976b2f0896856a3",
-      input: { img: imageUrl, version: "v1.4", scale: 2 },
+        "d55b9f2dcfb156089686b8f767776d5b61b007187a4e1e611881818098100fbb",
+        input: {
+          image: imageUrl,
+          structure: "hough",
+          prompt: prompt,
+          scale: 9,
+          a_prompt:
+            "best quality, photo from Pinterest, interior, cinematic photo, ultra-detailed, ultra-realistic, award-winning, interior design, natural lighting",
+          n_prompt:
+            "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality",
+        },
     }),
   });
 

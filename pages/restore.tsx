@@ -16,6 +16,9 @@ import va from "@vercel/analytics";
 import { useSession, signIn } from "next-auth/react";
 import useSWR from "swr";
 import { Rings } from "react-loader-spinner";
+import DropDown from "../components/DropDown";
+import { roomType, rooms, themeType, themes } from "../utils/dropdownTypes";
+
 
 // Configuration for the uploader
 const uploader = Uploader({
@@ -30,6 +33,7 @@ const Home: NextPage = () => {
   const [sideBySide, setSideBySide] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [photoName, setPhotoName] = useState<string | null>(null);
+  const [theme, setTheme] = useState<themeType>("Modern");
 
   const fetcher = (url: string) => fetch(url).then((res) => res.json());
   const { data, mutate } = useSWR("/api/remaining", fetcher);
@@ -68,7 +72,7 @@ const Home: NextPage = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ imageUrl: fileUrl }),
+      body: JSON.stringify({ imageUrl: fileUrl, theme }),
     });
 
     let newPhoto = await res.json();
@@ -141,7 +145,15 @@ const Home: NextPage = () => {
               />
             </div>
           ) : (
+            <div>
+            <DropDown
+                      theme={theme}
+                      // @ts-ignore
+                      setTheme={(newTheme) => setTheme(newTheme)}
+                      themes={themes}
+                    />
             <UploadDropZone />
+            </div>
           )
           }
           {originalPhoto && !restoredImage && (
