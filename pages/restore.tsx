@@ -19,9 +19,7 @@ import { Rings } from "react-loader-spinner";
 
 // Configuration for the uploader
 const uploader = Uploader({
-  apiKey: !!process.env.NEXT_PUBLIC_UPLOAD_API_KEY
-    ? process.env.NEXT_PUBLIC_UPLOAD_API_KEY
-    : "free",
+  apiKey: "public_kW15bGDBYUTSYvn4AGLxD3THRDvg",
 });
 
 const Home: NextPage = () => {
