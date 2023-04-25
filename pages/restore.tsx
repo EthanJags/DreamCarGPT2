@@ -39,14 +39,9 @@ const Home: NextPage = () => {
     maxFileCount: 1,
     mimeTypes: ["image/jpeg", "image/png", "image/jpg"],
     editor: { images: { crop: false } },
-    styles: { colors: { primary: "#000" } },
-    onValidate: async (file: File): Promise<undefined | string> => {
-      if (data.remainingGenerations === 0) {
-        return "No more generations left for the day.";
-      }
-      return undefined;
-    },
+    styles: { colors: { primary: "#000" } }
   };
+
 
   const UploadDropZone = () => (
     <UploadDropzone
