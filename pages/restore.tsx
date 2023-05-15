@@ -22,7 +22,7 @@ import { roomType, rooms, themeType, themes } from "../utils/dropdownTypes";
 
 // Configuration for the uploader
 const uploader = Uploader({
-  apiKey: "public_kW15bGDBYUTSYvn4AGLxD3THRDvg",
+  apiKey: "public_FW25bKAAxc7A3DBjMnUvjkRQuuwy",
 });
 
 const Home: NextPage = () => {
