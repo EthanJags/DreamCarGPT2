@@ -16,7 +16,7 @@ interface ExtendedNextApiRequest extends NextApiRequest {
 const ratelimit = redis
   ? new Ratelimit({
       redis: redis,
-      limiter: Ratelimit.fixedWindow(5, "1440 m"),
+      limiter: Ratelimit.fixedWindow(1000, "1440 m"),
       analytics: true,
     })
   : undefined;
@@ -25,34 +25,34 @@ export default async function handler(
   req: ExtendedNextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  // Check if user is logged in
-  const session = await getServerSession(req, res, authOptions);
-  if (!session || !session.user) {
-    return res.status(500).json("Login to upload.");
-  }
+//   // Check if user is logged in
+//   const session = await getServerSession(req, res, authOptions);
+//   if (!session || !session.user) {
+//     return res.status(500).json("Login to upload.");
+   
 
-  // Rate Limiting by user email
-  if (ratelimit) {
-    const identifier = session.user.email;
-    const result = await ratelimit.limit(identifier!);
-    res.setHeader("X-RateLimit-Limit", result.limit);
-    res.setHeader("X-RateLimit-Remaining", result.remaining);
+  // // Rate Limiting by user email
+  // if (ratelimit) {
+  //   const identifier = session.user.email;
+  //   const result = await ratelimit.limit(identifier!);
+  //   res.setHeader("X-RateLimit-Limit", result.limit);
+  //   res.setHeader("X-RateLimit-Remaining", result.remaining);
 
-    // Calcualte the remaining time until generations are reset
-    const diff = Math.abs(
-      new Date(result.reset).getTime() - new Date().getTime()
-    );
-    const hours = Math.floor(diff / 1000 / 60 / 60);
-    const minutes = Math.floor(diff / 1000 / 60) - hours * 60;
+  //   // Calcualte the remaining time until generations are reset
+  //   const diff = Math.abs(
+  //     new Date(result.reset).getTime() - new Date().getTime()
+  //   );
+  //   const hours = Math.floor(diff / 1000 / 60 / 60);
+  //   const minutes = Math.floor(diff / 1000 / 60) - hours * 60;
 
-    if (!result.success) {
-      return res
-        .status(429)
-        .json(
-          `Your generations will renew in ${hours} hours and ${minutes} minutes. Email hassan@hey.com if you have any questions.`
-        );
-    }
-  }
+  //   if (!result.success) {
+  //     return res
+  //       .status(429)
+  //       .json(
+  //         `Your generations will renew in ${hours} hours and ${minutes} minutes. Email hassan@hey.com if you have any questions.`
+  //       );
+  //   }
+  // }
 
   const imageUrl = req.body.imageUrl;
   const theme = req.body.theme;

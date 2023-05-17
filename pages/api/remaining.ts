@@ -9,9 +9,9 @@ export default async function handler(
 ) {
   // Check if user is logged in
   const session = await getServerSession(req, res, authOptions);
-  if (!session || !session.user) {
-    return res.status(500).json("Login to upload.");
-  }
+  // if (!session || !session.user) {
+  //   return res.status(500).json("Login to upload.");
+  // }
 
   // Query the redis database by email to get the number of generations left
   const identifier = session.user.email;
