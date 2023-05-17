@@ -179,7 +179,7 @@ const Home: NextPage = () => {
               </div>
               <div className="sm:mt-0 mt-8">
                 <h2 className="mb-1 font-medium text-lg">Restored Photo</h2>
-                <a href={restoredImage} target="_blank" rel="noreferrer">
+                {/* <a href={restoredImage} target="_blank" rel="noreferrer"> */}
                   <Image
                     alt="restored photo"
                     src={restoredImage}
@@ -188,7 +188,7 @@ const Home: NextPage = () => {
                     height={475}
                     onLoadingComplete={() => setRestoredLoaded(true)}
                   />
-                </a>
+                {/* </a> */}
               </div>
             </div>
           )}
