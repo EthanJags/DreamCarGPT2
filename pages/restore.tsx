@@ -182,7 +182,7 @@ const Home: NextPage = () => {
                 <a href={restoredImage} target="_blank" rel="noreferrer">
                   <Image
                     alt="restored photo"
-                    src={originalPhoto}
+                    src={restoredImage}
                     className="rounded-2xl relative sm:mt-0 mt-2 cursor-zoom-in"
                     width={475}
                     height={475}
