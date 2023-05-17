@@ -14,12 +14,12 @@ export default async function handler(
   // }
 
   // Query the redis database by email to get the number of generations left
-  const identifier = session.user.email;
+  // const identifier = session.user.email;
   const windowDuration = 24 * 60 * 60 * 1000;
   const bucket = Math.floor(Date.now() / windowDuration);
 
-  const usedGenerations =
-    (await redis?.get(`@upstash/ratelimit:${identifier!}:${bucket}`)) || 0;
+  // const usedGenerations =
+  //   (await redis?.get(`@upstash/ratelimit:${identifier!}:${bucket}`)) || 0;
 
   // it can return null and it also returns the number of generations the user has done, not the number they have left
 
@@ -30,7 +30,7 @@ export default async function handler(
   const hours = Math.floor(diff / 1000 / 60 / 60);
   const minutes = Math.floor(diff / 1000 / 60) - hours * 60;
 
-  const remainingGenerations = 5 - Number(usedGenerations);
+  // const remainingGenerations = 1000 - Number(usedGenerations);
 
-  return res.status(200).json({ remainingGenerations, hours, minutes });
+  return res.status(200).json({ 1000, hours, minutes });
 }
