@@ -14,7 +14,7 @@ export default async function handler(
   // }
 
   // Query the redis database by email to get the number of generations left
-  const identifier = session.user.email;
+  const identifier = "ethanjags1@gmail.com";
   const windowDuration = 24 * 60 * 60 * 1000;
   const bucket = Math.floor(Date.now() / windowDuration);
 
