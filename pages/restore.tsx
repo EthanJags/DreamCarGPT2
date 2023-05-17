@@ -29,7 +29,7 @@ const Home: NextPage = () => {
   const [originalPhoto, setOriginalPhoto] = useState<string | null>(null);
   const [restoredImage, setRestoredImage] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
-  const [restoredLoaded, setRestoredLoaded] = useState<boolean>(true);
+  const [restoredLoaded, setRestoredLoaded] = useState<boolean>(false);
   const [sideBySide, setSideBySide] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [photoName, setPhotoName] = useState<string | null>(null);
