@@ -72,7 +72,7 @@ const Home: NextPage = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ imageUrl: fileUrl/** , theme*/ }),
+      body: JSON.stringify({ imageUrl: fileUrl, theme }),
     });
 
     let newPhoto = await res.json();
